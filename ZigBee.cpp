@@ -603,46 +603,58 @@ int ZigBeeClass::peek(){
 }
 
 size_t ZigBeeClass::write(uint8_t data){
-	if(index<MAX_MESSAGE_SIZE)
+	if(index<MAX_MESSAGE_SIZE){
 		buffer[index++]=data;
+		return 1;
+	}
 	else{
 		printf("Error: Buffer exceeds %d",MAX_MESSAGE_SIZE);
+		return 0;
 	}
 }
 
 size_t ZigBeeClass::write(uint16_t val){
+    uint8_t count=0;
 	mac_t mac;
 	mac.num64=(uint64_t)val;
 	for(int i=0;i<2;i++)
-	write(mac.num[i]);
+		count+=write(mac.num[i]);
+	return count;
 }
 
 size_t ZigBeeClass::write(uint32_t val){
+    uint8_t count=0;
 	mac_t mac;
 	mac.num64=(uint64_t)val;
 	for(int i=0;i<4;i++)
-	write(mac.num[i]);
+		count+=write(mac.num[i]);
+	return count;
 }
 
 size_t ZigBeeClass::write(uint64_t val){
+    uint8_t count=0;
 	mac_t mac;
 	mac.num64=val;
 	for(int i=0;i<8;i++)
-	write(mac.num[i]);
+		count+=write(mac.num[i]);
+	return count;
 }
 
 
 
 size_t ZigBeeClass::write(const uint8_t* buf, size_t size){
+    uint8_t count=0;
 	for(int i=0;i<size;i++){
-		write(buf[i]);
+		count+=write(buf[i]);
 	}
+	return count;
 }
 
 size_t ZigBeeClass::write(char *buffer) {
     //
     //this function assumes a well formatted string (char array) has been passed in
     //
+	uint8_t count=0;
     return write((uint8_t*)buffer, strlen(buffer));
     
 }
