@@ -1,9 +1,9 @@
 #ifndef ZigBee_h
 #define ZigBee_h
 
-#include "_SETTINGS_.h"
 #include "Energia.h"
 #include <stdint.h>
+#include "utility/_SETTINGS_.h"
 #include "utility/module.h"
 #include "utility/module_utilities.h"
 #include "utility/application_configuration.h"

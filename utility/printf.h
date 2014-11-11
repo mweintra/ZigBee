@@ -64,7 +64,7 @@ For further details see source code.
 #define __TFP_PRINTF__
 
 #include <stdarg.h>
-#include "../_SETTINGS_.h"
+#include "_SETTINGS_.h"
 
 void tfp_printf(char *fmt, ...);
 void noprint(char *fmt, ...);
